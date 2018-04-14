@@ -1,5 +1,6 @@
-package org.chain.smart4j.framework;
+package org.chain.smart4j.framework.helper;
 
+import org.chain.smart4j.framework.constant.ConfigConstant;
 import org.chain.smart4j.framework.utils.PropsUtil;
 
 import java.util.Properties;

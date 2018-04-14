@@ -1,4 +1,4 @@
-package org.chain.smart4j.framework;
+package org.chain.smart4j.framework.constant;
 
 /**
  * 〈一句话功能简述〉<br>
