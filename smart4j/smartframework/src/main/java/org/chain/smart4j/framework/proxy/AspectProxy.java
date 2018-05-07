@@ -18,13 +18,12 @@ public abstract class AspectProxy implements Proxy {
     private static final Logger LOGGER = LoggerFactory.getLogger(AspectProxy.class);
 
     public Object doProxy(ProxyChain proxyChain) throws Throwable {
-        Object result = null;
+        Object result;
         Class<?> cls = proxyChain.getTargetClass();
         Method method = proxyChain.getTargetMethod();
         Object[] params = proxyChain.getMethodParams();
         begin();
         try {
-
             if (intercept(cls, method, params)) {
                 before(cls, method, params);
                 result = proxyChain.doProxyChain();
@@ -32,16 +31,14 @@ public abstract class AspectProxy implements Proxy {
             } else {
                 result = proxyChain.doProxyChain();
             }
-
         } catch (Exception e) {
             LOGGER.error("proxy failure", e);
             error(cls, method, params, e);
             throw e;
-
         } finally {
             end();
         }
-        return null;
+        return result;
     }
 
     public void error(Class<?> cls, Method method, Object[] params, Exception e) {

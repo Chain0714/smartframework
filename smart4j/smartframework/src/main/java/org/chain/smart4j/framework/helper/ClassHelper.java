@@ -4,6 +4,7 @@ import org.chain.smart4j.framework.annotation.Controller;
 import org.chain.smart4j.framework.annotation.Service;
 import org.chain.smart4j.framework.utils.ClassUtil;
 
+import java.lang.annotation.Annotation;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -67,5 +68,37 @@ public final class ClassHelper {
         beanClassSet.addAll(getServiceClassSet());
         beanClassSet.addAll(getControllerClassSet());
         return beanClassSet;
+    }
+
+    /**
+     * 获取应用包下所有父类（或接口）的子类（或实现类）
+     *
+     * @param supperClass
+     * @return
+     */
+    public static Set<Class<?>> getClassSetBySuper(Class<?> supperClass) {
+        Set<Class<?>> classSet = new HashSet<Class<?>>();
+        for (Class<?> cls : CLASS_SET) {
+            if (cls.isAssignableFrom(supperClass) && !cls.equals(supperClass)) {
+                classSet.add(cls);
+            }
+        }
+        return classSet;
+    }
+
+    /**
+     * 获取应用包下所有带某注解的类
+     *
+     * @param annotationClass
+     * @return
+     */
+    public static Set<Class<?>> getClassSetByAnnotation(Class<? extends Annotation> annotationClass) {
+        Set<Class<?>> classSet = new HashSet<Class<?>>();
+        for (Class<?> cls : CLASS_SET) {
+            if (cls.isAnnotationPresent(annotationClass)) {
+                classSet.add(cls);
+            }
+        }
+        return classSet;
     }
 }
